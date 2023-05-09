@@ -1,45 +1,41 @@
-"""Функции для работы с массивами"""
-
-
-def get(array, index, default=None):
+def get(arr, i, default=None):
     """
     Извлекает из списка значение по указанному индексу, если индекс существует.
     Если индекс не существует, возвращает значение по умолчанию.
-    Функция работает только с неотрицательными индексами.
-    :param array: исходный список.
-    :param index: индекс извлекаемого элемента.
-    :param default: значение по-умолчанию.
-    :return: значение по индексу или значение по-умолчанию.
     """
-    if index < 0:
+    if i < 0 or i >= len(arr):
         return default
+    else:
+        return arr[i]
 
-    return array[index]
-
-
-def my_slice(coll, start=0, end=None):
+def my_slice(arr, start, end=None):
     """
-    Возвращает новый массив, содержащий копию части исходного массива.
-    :param coll: исходный список.
-    :param start: индекс, по которому начинается извлечение. Если индекс отрицательный,
-    start указывает смещение от конца списка. По умолчанию равен нулю.
-    :param end: индекс, по которому заканчивается извлечение (не включая элемент с индексом end).
-    Если индекс отрицательный, end указывает смещение от конца списка. По умолчанию равен длине исходного списка.
-    :return: массив элементов
+    Возвращает срез заданного массива, аналогично встроенной функции среза..
     """
-    length = len(coll)
+    if end is None:
+        end = len(arr)
+    return arr[start:end]
 
-    if length == 0:
-        return []
+def swap(arr, i, j):
+    """
+    Меняет местами элементы по заданным индексам в заданном массиве.
+    """
+    arr[i], arr[j] = arr[j], arr[i]
 
-    normalized_end = length if end is None else end
+def remove_duplicates(arr):
+    """
+    Удаляет дубликаты из заданного массива, сохраняя порядок элементов.
+    """
+    seen = set()
+    result = []
+    for elem in arr:
+        if elem not in seen:
+            seen.add(elem)
+            result.append(elem)
+    return result
 
-    normalized_start = start
-
-    if normalized_start < 0:
-        if normalized_start < -length:
-            normalized_start = 0
-        else:
-            normalized_start += length
-
-    return coll[normalized_start:normalized_end]
+def concatenate(arr1, arr2):
+    """
+    Возвращает конкатенацию заданных массивов.
+    """
+    return arr1 + arr2
